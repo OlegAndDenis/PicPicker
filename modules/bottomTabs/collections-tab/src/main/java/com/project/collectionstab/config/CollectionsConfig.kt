@@ -1,18 +1,22 @@
 package com.project.collectionstab.config
 
+import androidx.annotation.DrawableRes
+import androidx.annotation.StringRes
 import androidx.compose.runtime.Composable
-import com.project.bottom_navigation.BottomNavigationEntry
-import com.project.bottom_navigation.BottomNavigationUi
 import com.project.collectionstab.R
 import com.project.collectionstab.screen.Collections
-import com.project.configuration.ConfigurationTab.collections
+import com.project.configuration.ConfigurationTab
+import com.project.screenconfig.ScreenConfig
 import javax.inject.Inject
 
-private object CollectionsTab : BottomNavigationEntry(collections)
+class CollectionsConfig @Inject constructor() : ScreenConfig() {
+    override val route: String = ConfigurationTab.collections
 
-class CollectionsConfig @Inject constructor(): BottomNavigationUi {
-    override val screen: BottomNavigationEntry = CollectionsTab
-    override val icon: Int = R.drawable.collections_tab
+    override val showToolbar: Boolean = true
+    @StringRes override val labelRes: Int = R.string.collections_label
+
+    override val showBottomNavBar: Boolean = true
+    @DrawableRes override val icon: Int = R.drawable.collections_tab
     override val order: Int = 1
     override val openScreen: @Composable () -> Unit = {
         Collections()

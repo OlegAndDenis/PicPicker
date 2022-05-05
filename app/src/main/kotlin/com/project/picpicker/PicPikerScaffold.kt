@@ -16,14 +16,20 @@ import com.project.bottom_navigation.BottomNavigation
 import com.project.bottom_navigation.BottomNavigationUi
 import com.project.bottom_navigation.graph.addBottomNavigationDestinations
 import com.project.bottom_navigation.graph.addComposableDestinations
-import com.project.navigation.navigation.*
+import com.project.navigation.navigation.Directions
+import com.project.navigation.navigation.NavigateUp
+import com.project.navigation.navigation.Navigation
+import com.project.navigation.navigation.NavigationDestination
+import com.project.navigation.navigation.PopBackStack
+import com.project.screenconfig.ScreenConfig
+import com.project.toolbar.Toolbar
 
 @OptIn(ExperimentalAnimationApi::class)
 @Composable
 fun PicPikerScaffold(
     appNavigation: Navigation,
     screens: Set<NavigationDestination> = emptySet(),
-    bottomTab: Set<BottomNavigationUi> = emptySet()
+    screenConfigs: Set<ScreenConfig> = emptySet()
 ) {
     Surface {
         val navController = rememberAnimatedNavController()
@@ -50,19 +56,25 @@ fun PicPikerScaffold(
             bottomBar = {
                 BottomNavigation(
                     navController = navController,
-                    bottomTab
+                    screenConfigs.sortedBy(BottomNavigationUi::order).toSet()
+                )
+            },
+            topBar = {
+                Toolbar(
+                    navController = navController,
+                    screenConfigs
                 )
             }
         ) { paddingValues ->
             AnimatedNavHost(
                 modifier = Modifier.padding(paddingValues),
                 navController = navController,
-                startDestination = bottomTab.find(BottomNavigationUi::isRoot)?.screen?.route.orEmpty(),
+                startDestination = screenConfigs.find(BottomNavigationUi::isRoot)?.route.orEmpty(),
                 enterTransition = { fadeIn(animationSpec = tween(0)) },
                 exitTransition = { fadeOut(animationSpec = tween(0)) },
             ) {
                 addComposableDestinations(screens)
-                addBottomNavigationDestinations(bottomTab)
+                addBottomNavigationDestinations(screenConfigs)
             }
         }
     }

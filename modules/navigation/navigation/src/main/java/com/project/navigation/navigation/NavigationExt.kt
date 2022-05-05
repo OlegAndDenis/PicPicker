@@ -1,6 +1,10 @@
 package com.project.navigation.navigation
 
-import androidx.navigation.*
+import androidx.navigation.NamedNavArgument
+import androidx.navigation.NavArgument
+import androidx.navigation.NavBackStackEntry
+import androidx.navigation.NavType
+import androidx.navigation.navArgument
 
 private const val HIDE_BOTTOM_NAV_ARG = "HIDE_BOTTOM_NAV_ARG"
 

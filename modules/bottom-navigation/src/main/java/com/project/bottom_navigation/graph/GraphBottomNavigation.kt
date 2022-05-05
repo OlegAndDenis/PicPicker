@@ -8,8 +8,7 @@ import com.project.bottom_navigation.BottomNavigationUi
 @OptIn(ExperimentalAnimationApi::class)
 fun NavGraphBuilder.addBottomNavigationDestinations(tabs: Set<BottomNavigationUi>) {
     tabs.forEach { entry ->
-        val destination = entry.screen
-        composable(destination.route) {
+        composable(entry.route) {
             entry.openScreen()
         }
     }

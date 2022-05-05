@@ -5,6 +5,8 @@ import com.project.picpicker.Dependency.jetpackComposeUi
 import com.project.picpicker.Modules.bottomNavigation
 import com.project.picpicker.Modules.configuration
 import com.project.picpicker.Modules.navigation
+import com.project.picpicker.Modules.screenConfig
+import com.project.picpicker.Modules.toolbar
 import com.project.picpicker.dependency.helper.addDep
 import com.project.picpicker.dependency.helper.module
 import com.project.picpicker.dependency.helper.plus
@@ -20,5 +22,7 @@ module(
         module(bottomNavigation),
         module(navigation),
         module(configuration),
+        module(toolbar),
+        module(screenConfig),
     )
 )

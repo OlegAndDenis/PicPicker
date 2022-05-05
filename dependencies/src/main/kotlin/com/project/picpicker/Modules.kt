@@ -5,6 +5,8 @@ object Modules {
     const val commonTheme = "common-theme"
     const val bottomNavigation = "bottom-navigation"
     const val configuration = "configuration"
+    const val toolbar = "toolbar"
+    const val screenConfig = "screen-config"
 }
 
 object TabModule {

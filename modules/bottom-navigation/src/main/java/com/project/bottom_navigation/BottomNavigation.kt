@@ -3,7 +3,13 @@ package com.project.bottom_navigation
 import androidx.compose.animation.core.animateDpAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Canvas
-import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.material.Icon
 import androidx.compose.material.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -40,10 +46,10 @@ fun BottomNavigation(navController: NavController, bottomScreens: Set<BottomNavi
     ) {
         bottomScreens.forEach { bottomEntry ->
             BottomTab(
-                selected = currentRoute == bottomEntry.screen.route,
+                selected = currentRoute == bottomEntry.route,
                 alwaysShowLabel = false,
                 onClick = {
-                    navController.navigate(bottomEntry.screen.route) {
+                    navController.navigate(bottomEntry.route) {
                         restoreState = true
                         popUpTo(navController.graph.startDestinationId) {
                             saveState = true
@@ -71,7 +77,7 @@ fun CustomTab(bottomEntry: BottomNavigationUi, animationProgress: Float) {
     ) {
         Icon(
             imageVector = ImageVector.vectorResource(id = bottomEntry.icon),
-            contentDescription = bottomEntry.screen.route,
+            contentDescription = bottomEntry.route,
             modifier = Modifier
                 .fillMaxWidth()
                 .size(SizeIcon)
