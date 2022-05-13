@@ -1,12 +1,11 @@
-package com.project.unsplash_api.interceptor
+package com.project.retrofit_common.interceptor
 
+import java.util.concurrent.TimeUnit
 import okhttp3.CacheControl
 import okhttp3.Interceptor
 import okhttp3.Response
-import java.net.ConnectException
-import java.util.concurrent.TimeUnit
 
-object NetworkInterceptor : Interceptor {
+internal object NetworkInterceptor : Interceptor {
     override fun intercept(chain: Interceptor.Chain): Response {
         val request = chain.request()
         val response = chain.proceed(request)
@@ -28,25 +27,6 @@ object NetworkInterceptor : Interceptor {
             return chain.proceed(cacheRequest)
         } else {
             return response
-        }
-    }
-}
-
-object OfflineInterceptor : Interceptor {
-    override fun intercept(chain: Interceptor.Chain): Response {
-        return try {
-            chain.proceed(chain.request())
-        } catch (e: ConnectException) {
-            val cacheControl = CacheControl.Builder()
-                .onlyIfCached()
-                .maxStale(1, TimeUnit.DAYS)
-                .build()
-
-            val offlineRequest = chain.request().newBuilder()
-                .removeHeader("Pragma")
-                .cacheControl(cacheControl)
-                .build()
-            chain.proceed(offlineRequest)
         }
     }
 }
